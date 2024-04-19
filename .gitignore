@@ -117,3 +117,6 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 /.idea/
+features/__pycache__/
+features/pages/__pycache__/
+utilities/__pycache__/
