@@ -1,23 +1,26 @@
-from selenium.webdriver.common.by import By
+from features.pages.AccountPage import AccountPage
+from features.pages.BasePage import BasePage
 
 
-class LoginPage:
+class LoginPage(BasePage):
+
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
     email_address_field_id = "input-email"
     password_field_id = "input-password"
     login_button_xpath = "//input[@value='Login']"
-    warning_message = "//div[contains(@class, 'alert')]"
+    warning_message_xpath = "//div[contains(@class, 'alert')]"
 
     def enter_email_address(self, email_address):
-        self.driver.find_element(By.ID, self.email_address_field_id).send_keys(email_address)
+        self.type_into_element("email_address_field_id", self.email_address_field_id, email_address)
 
     def enter_password(self, password):
-        self.driver.find_element(By.ID, self.password_field_id).send_keys(password)
+        self.type_into_element("password_field_id", self.password_field_id, password)
 
     def click_login_button(self):
-        self.driver.find_element(By.XPATH, self.login_button_xpath).click()
+        self.click_on_element("login_button_xpath", self.login_button_xpath)
+        return AccountPage(self.driver)
 
     def verify_warning_message_displayed(self, message):
-        return self.driver.find_element(By.XPATH, self.warning_message).text.__contains__(message)
+        return self.verify_element_text("warning_message_xpath", self.warning_message_xpath, message)
