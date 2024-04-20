@@ -1,8 +1,7 @@
-from datetime import datetime
-
 from behave import *
 
 from features.pages.HomePage import HomePage
+from utilities import EmailWithTimestampGenerator
 
 
 @given(u'I navigate to the Register page')
@@ -12,17 +11,17 @@ def step_impl(context):
     context.register_page = context.home_page.select_register_option()
 
 
-@when(u'I enter mandatory fields')
+@when(u'I enter below details into the mandatory fields')
 def step_impl(context):
-    time_stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    new_email = "test_user_" + time_stamp + "@yopmail.com"
+    new_email = EmailWithTimestampGenerator.get_new_email_with_timestamp()
 
-    context.register_page.enter_first_name("Test")
-    context.register_page.enter_last_name("User")
-    context.register_page.enter_email(new_email)
-    context.register_page.enter_telephone("1234567890")
-    context.register_page.enter_password("12345")
-    context.register_page.enter_confirm_password("12345")
+    for row in context.table:
+        context.register_page.enter_first_name(row["first_name"])
+        context.register_page.enter_last_name(row["last_name"])
+        context.register_page.enter_email(new_email)
+        context.register_page.enter_telephone(row["telephone"])
+        context.register_page.enter_password(row["password"])
+        context.register_page.enter_confirm_password(row["confirm_password"])
 
 
 @when(u'I select Privacy Policy option')
@@ -40,28 +39,30 @@ def step_impl(context):
     assert context.account_success_page.verify_account_created_message("Your Account Has Been Created!")
 
 
-@when(u'I enter details in all fields')
+@when(u'I enter below details in all fields')
 def step_impl(context):
-    time_stamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    new_email = "test_user_" + time_stamp + "@yopmail.com"
+    new_email = EmailWithTimestampGenerator.get_new_email_with_timestamp()
 
-    context.register_page.enter_first_name("Test")
-    context.register_page.enter_last_name("User")
-    context.register_page.enter_email(new_email)
-    context.register_page.enter_telephone("1234567890")
-    context.register_page.enter_password("12345")
-    context.register_page.enter_confirm_password("12345")
-    context.register_page.select_newsletter_yes_option()
+    for row in context.table:
+        context.register_page.enter_first_name(row["first_name"])
+        context.register_page.enter_last_name(row["last_name"])
+        context.register_page.enter_email(new_email)
+        context.register_page.enter_telephone(row["telephone"])
+        context.register_page.enter_password(row["password"])
+        context.register_page.enter_confirm_password(row["confirm_password"])
+        context.register_page.enter_email(new_email)
+        context.register_page.select_newsletter_yes_option()
 
 
-@when(u'I enter details in all fields except email field')
+@when(u'I enter below details in all fields except email field')
 def step_impl(context):
-    context.register_page.enter_first_name("Test")
-    context.register_page.enter_last_name("User")
-    context.register_page.enter_telephone("1234567890")
-    context.register_page.enter_password("12345")
-    context.register_page.enter_confirm_password("12345")
-    context.register_page.select_newsletter_yes_option()
+    for row in context.table:
+        context.register_page.enter_first_name(row["first_name"])
+        context.register_page.enter_last_name(row["last_name"])
+        context.register_page.enter_telephone(row["telephone"])
+        context.register_page.enter_password(row["password"])
+        context.register_page.enter_confirm_password(row["confirm_password"])
+        context.register_page.select_newsletter_yes_option()
 
 
 @when(u'I enter existing account email into email field')

@@ -9,10 +9,10 @@ def step_impl(context):
     assert context.home_page.check_home_page_title("Your Store")
 
 
-@when(u'I enter a valid product in the Search box')
-def step_impl(context):
+@when(u'I enter a valid product as "{product}" in the Search box')
+def step_impl(context, product):
     context.home_page = HomePage(context.driver)
-    context.home_page.enter_search_field_value("HP")
+    context.home_page.enter_search_field_value(product)
 
 
 @when(u'I click on Search button')
@@ -25,9 +25,9 @@ def step_impl(context):
     assert context.search_page.verify_valid_product_displayed()
 
 
-@when(u'I enter an invalid product in the Search box')
-def step_impl(context):
-    context.home_page.enter_search_field_value("Honda")
+@when(u'I enter an invalid product as "{product}" in the Search box')
+def step_impl(context, product):
+    context.home_page.enter_search_field_value(product)
 
 
 @then(u'Proper message should be displayed in the search results')
