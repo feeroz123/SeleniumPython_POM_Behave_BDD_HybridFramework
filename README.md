@@ -24,4 +24,13 @@ or
 
 Command to trigger the test execution with the Allure reporting generation:
 `behave -f allure_behave.formatter:AllureFormatter -o reports/ features` 
+
+To server the Allure Report from a local server:
 `allure serve reports/`
+
+
+To generate an HTML report from the Allure report files:
+`allure generate --single-file reports/`
+
+
+The output report gets created as: **allure-report/index.html**
