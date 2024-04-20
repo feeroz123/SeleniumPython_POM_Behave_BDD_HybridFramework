@@ -1,5 +1,8 @@
 # Before Scenario hook
+import allure
+from allure_commons.types import AttachmentType
 from selenium import webdriver
+
 from utilities import ConfigReader
 
 
@@ -22,3 +25,10 @@ def before_scenario(context, driver):
 # After Scenario hook
 def after_scenario(context, driver):
     context.driver.quit()
+
+
+# To take screenshot for failed test steps
+def after_step(context, step):
+    if step.status == 'failed':
+        allure.attach(context.driver.get_screenshot_as_png(),
+                      name="screenshot", attachment_type=AttachmentType.PNG)

@@ -120,3 +120,4 @@ fabric.properties
 features/__pycache__/
 features/pages/__pycache__/
 utilities/__pycache__/
+/reports/
