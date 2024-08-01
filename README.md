@@ -12,6 +12,8 @@ The project requires these packages installed in the IDE (Settings - Python Inte
 * behave
 * allure-behave
 
+These packages can also be installed using: `pip install -r requirements.txt`
+
 For Allure Reports:
 1. Download and Unzip the latest "**allure**" command line tool from [here](https://github.com/allure-framework/allure2/releases).
 2. Update the Path environment variable
